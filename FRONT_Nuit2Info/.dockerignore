@@ -1,0 +1,29 @@
+# Exclude node_modules
+node_modules
+
+# Exclude logs
+logs
+*.log
+
+# Exclude environment files
+.env
+.env.*
+
+# Exclude Docker-related files (optional if not needed in the image)
+.dockerignore
+Dockerfile
+
+# Exclude cache and build artifacts
+*.cache
+dist/
+build/
+
+# Exclude editor and IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Exclude OS-specific files
+.DS_Store
+Thumbs.db
