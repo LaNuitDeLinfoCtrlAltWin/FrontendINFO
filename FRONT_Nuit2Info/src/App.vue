@@ -11,7 +11,7 @@ import { QBtn } from 'quasar';
     <div class="wrapper">
       <HelloWorld msg="You did it!" />
 
-      <q-btn label="test"/>
+      <q-btn label="test" @click="handleTestClick" />
 
       <nav>
         <RouterLink to="/">Home</RouterLink>
@@ -36,7 +36,7 @@ interface WeatherForecast {
 }
 
 // URL de l'API
-const BASE_URL = 'http://localhost:5023/WeatherForecast';
+const BASE_URL = 'https://backendinfo-2svm.onrender.com/weatherforecast';
 
 // Fonction pour récupérer les prévisions météo
 async function getWeatherForecast(): Promise<WeatherForecast[]> {
@@ -50,13 +50,17 @@ async function getWeatherForecast(): Promise<WeatherForecast[]> {
   }
 }
 
-getWeatherForecast()
-  .then(forecasts => {
-    forecasts.forEach(forecast => {
-      console.log(`Date: ${forecast.date}, Température (C): ${forecast.temperatureC}, Résumé: ${forecast.summary}`);
-    });
-  })
-  .catch(error => console.error('Erreur lors du traitement des prévisions météo :', error));
+function handleTestClick() {
+  getWeatherForecast()
+    .then((forecasts) => {
+      forecasts.forEach((forecast) => {
+        console.log(
+          `Date: ${forecast.date}, Temperature (C): ${forecast.temperatureC}, Summary: ${forecast.summary}`
+        );
+      });
+    })
+    .catch((error) => console.error('Error handling weather forecast:', error));
+}
 
 </script>
 <style scoped>
