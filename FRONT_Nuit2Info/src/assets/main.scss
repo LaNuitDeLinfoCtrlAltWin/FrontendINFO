@@ -1,0 +1,14 @@
+@use "sass:color";
+
+$base-dark-color: #000011;
+
+$lighter-dark-color: #242442;
+
+body.body--dark {
+    --q-dark-page: #{$base-dark-color};
+    --q-dark: #{$lighter-dark-color};
+    //--q-color-primary: #4caf50;
+    //--q-color-secondary: #ff5722;
+
+    --q-dark-lighter: #{$lighter-dark-color};
+}
