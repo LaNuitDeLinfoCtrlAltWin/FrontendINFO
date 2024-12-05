@@ -25,7 +25,7 @@
   </q-page>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: "HomePage",
   data() {
@@ -60,7 +60,7 @@ export default {
 
 .comparison-card:hover {
   transform: scale(1.05);
-  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
 /* Add more spacing between cards */
