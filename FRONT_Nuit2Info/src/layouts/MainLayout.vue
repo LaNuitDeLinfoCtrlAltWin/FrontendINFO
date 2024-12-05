@@ -53,6 +53,7 @@
     <!-- Contenu principal -->
     <q-page-container>
       <router-view />
+      <Globe/>
     </q-page-container>
   </q-layout>
 </template>
@@ -61,9 +62,11 @@
 import { ref, computed, onMounted } from 'vue';
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
+import Globe from "@/components/Globe.vue";
 
 export default {
   name: 'MainLayout',
+  components: {Globe},
   setup() {
     const $q = useQuasar();
     const router = useRouter();
