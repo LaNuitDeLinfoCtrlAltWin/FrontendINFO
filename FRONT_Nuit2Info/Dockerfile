@@ -22,6 +22,6 @@ COPY FRONT_Nuit2Info/ ./
 RUN npm run build
 
 # Expose the port on which the application runs
-EXPOSE 5173
+EXPOSE 80
 # Start the application
 CMD ["npm", "run", "dev"]
