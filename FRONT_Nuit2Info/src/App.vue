@@ -24,6 +24,41 @@ import { QBtn } from 'quasar';
   <RouterView />
 </template>
 
+<script lang="ts">
+import axios from 'axios';
+
+// Interface pour correspondre à votre modèle de données
+interface WeatherForecast {
+  date: string;
+  temperatureC: number;
+  temperatureF: number;
+  summary: string;
+}
+
+// URL de l'API
+const BASE_URL = 'http://localhost:5023/WeatherForecast';
+
+// Fonction pour récupérer les prévisions météo
+async function getWeatherForecast(): Promise<WeatherForecast[]> {
+  try {
+    const response = await axios.get<WeatherForecast[]>(BASE_URL);
+    console.log('Prévisions météo :', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de l\'appel API :', error);
+    throw error;
+  }
+}
+
+getWeatherForecast()
+  .then(forecasts => {
+    forecasts.forEach(forecast => {
+      console.log(`Date: ${forecast.date}, Température (C): ${forecast.temperatureC}, Résumé: ${forecast.summary}`);
+    });
+  })
+  .catch(error => console.error('Erreur lors du traitement des prévisions météo :', error));
+
+</script>
 <style scoped>
 header {
   line-height: 1.5;
