@@ -1,7 +1,7 @@
 <template>
   <q-layout view="lHh Lpr lFf">
     <!-- Barre d'en-tête -->
-    <div>
+    <div style="z-index: 100">
       <q-toolbar class="q-my-md">
         <q-toolbar-title class="q-ml-md text-bold">Ctrl + Alt + Win</q-toolbar-title>
 
@@ -28,16 +28,6 @@
             class="rounded-tab"
           />
         </q-tabs>
-
-        <q-btn
-          flat
-          dense
-          round
-          :icon="darkMode ? 'brightness_7' : 'brightness_4'"
-          class="q-mr-sm"
-          @click="toggleDarkMode"
-          :aria-label="darkMode ? 'Mode clair' : 'Mode sombre'"
-        />
       </q-toolbar>
     </div>
 
@@ -53,7 +43,7 @@
     <!-- Contenu principal -->
     <q-page-container>
       <router-view />
-      <Globe/>
+      <Globe style="position: absolute; top: 50px" :style="$route.name === 'home' ? 'z-index: -1' : ''"/>
     </q-page-container>
   </q-layout>
 </template>
@@ -63,9 +53,15 @@ import { ref, computed, onMounted } from 'vue';
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
 import Globe from "@/components/Globe.vue";
+import router from '@/router'
 
 export default {
   name: 'MainLayout',
+  methods: {
+    router() {
+      return router
+    }
+  },
   components: {Globe},
   setup() {
     const $q = useQuasar();
@@ -76,7 +72,7 @@ export default {
     const tabs = [
       { name: 'home', label: 'Accueil' },
       { name: 'heart', label: 'Le Coeur' },
-      { name: 'lungs', label: 'Les Poumons' },
+      { name: 'pulmon', label: 'Les Poumons' },
       { name: 'skin', label: 'La Peau' },
       { name: 'liver', label: 'Le Foie' },
       { name: 'neurons', label: 'Les Neurones' },
@@ -85,11 +81,10 @@ export default {
       { name: 'immunity', label: 'Le Système Immunitaire' },
     ];
 
-    // Récupérer la préférence utilisateur pour le mode sombre/clair
     onMounted(() => {
-      const savedMode = localStorage.getItem('darkMode');
-      darkMode.value = savedMode === 'true'; // Convertir en booléen
-      $q.dark.set(darkMode.value); // Appliquer le mode sombre/clair
+      // const savedMode = localStorage.getItem('darkMode');
+      // darkMode.value = savedMode === 'true';
+      $q.dark.set(true);
     });
 
     const isMobile = computed(() => $q.screen.lt.md);
@@ -100,8 +95,8 @@ export default {
 
     const toggleDarkMode = () => {
       darkMode.value = !darkMode.value;
-      $q.dark.set(darkMode.value); // Appliquer le mode
-      localStorage.setItem('darkMode', darkMode.value.toString()); // Enregistrer la préférence
+      $q.dark.set(darkMode.value);
+      localStorage.setItem('darkMode', darkMode.value.toString());
     };
 
     const goTo = (routeName: string) => {
@@ -123,23 +118,19 @@ export default {
 </script>
 
 <style lang="scss">
-/* Style pour les onglets arrondis */
 .rounded-tab {
   border-radius: 12px;
   transition: background-color 0.3s ease, font-weight 0.3s ease;
 }
 
-/* Onglet actif : texte en gras */
 .q-tab.q-tab--active {
   font-weight: bold;
 }
 
-/* Supprimer l'indicateur visuel de l'onglet actif */
 .q-tab.q-tab--active .q-tab__indicator {
   display: none;
 }
 
-/* Textes alignés à gauche */
 .text-left {
   text-align: left;
 }

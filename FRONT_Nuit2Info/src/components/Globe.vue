@@ -21,9 +21,6 @@ onMounted(() => {
 <style scoped>
 .globe-container {
   width: 100%;
-  height: 100vh;
   overflow: hidden;
-  z-index: -1;
-  position: absolute;
 }
 </style>

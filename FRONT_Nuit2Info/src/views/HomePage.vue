@@ -15,6 +15,7 @@
         class="comparison-card"
         outlined
         clickable
+        @click="goTo(comparison.name)"
       >
         <q-card-section>
           <div class="text-h6">{{ comparison.title }}</div>
@@ -26,19 +27,32 @@
 </template>
 
 <script lang="ts">
+import { useRouter } from "vue-router";
+
 export default {
   name: "HomePage",
+  setup() {
+    const router = useRouter();
+
+    const goTo = (routeName: string) => {
+      router.push({ name: routeName });
+    };
+
+    return {
+      goTo,
+    };
+  },
   data() {
     return {
       comparisons: [
-        { title: "Le Coeur", description: "Système circulatoire : courants marins et pompe thermohaline." },
-        { title: "Les Poumons", description: "Échanges gazeux : photosynthèse et dissolution du CO2." },
-        { title: "La Peau", description: "Régulation de température : salinité et thermorégulation." },
-        { title: "Le Foie", description: "Filtration : purification et recyclage dans l'océan." },
-        { title: "Les Neurones", description: "Réseau de communication : signalisation par les courants." },
-        { title: "Les Muscles", description: "Force motrice : vagues et marées." },
-        { title: "Le Sang", description: "Écosystèmes marins : transport de nutriments." },
-        { title: "Le Système Immunitaire", description: "Barrières naturelles : coraux et zones protégées." },
+        { name: "heart", title: "Le Coeur", description: "Système circulatoire : courants marins et pompe thermohaline." },
+        { name: "pulmon", title: "Les Poumons", description: "Échanges gazeux : photosynthèse et dissolution du CO2." },
+        { name: "skin", title: "La Peau", description: "Régulation de température : salinité et thermorégulation." },
+        { name: "liver", title: "Le Foie", description: "Filtration : purification et recyclage dans l'océan." },
+        { name: "neurons", title: "Les Neurones", description: "Réseau de communication : signalisation par les courants." },
+        { name: "muscles", title: "Les Muscles", description: "Force motrice : vagues et marées." },
+        { name: "blood", title: "Le Sang", description: "Écosystèmes marins : transport de nutriments." },
+        { name: "immunity", title: "Le Système Immunitaire", description: "Barrières naturelles : coraux et zones protégées." },
       ],
     };
   },
