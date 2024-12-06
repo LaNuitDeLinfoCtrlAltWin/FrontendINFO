@@ -65,6 +65,7 @@
 <script lang="ts" setup>
 import { ref } from "vue";
 import axios from "axios";
+import { useRoute } from "vue-router";
 
 // Props pour les modes et le contexte
 const props = defineProps({
@@ -99,6 +100,8 @@ const closeCard = () => {
   showCard.value = false;
 };
 
+const route = useRoute(); // Utilisation de useRoute pour accéder à $route
+
 const generateQuestions = async () => {
   isLoading.value = true;
   try {
@@ -116,7 +119,7 @@ const generateQuestions = async () => {
 
     const result = await axios.post(
       `http://localhost:5023/api/chatbot/generate-questions`,
-      obj[$route.name],
+      obj[route.name],
       {
         headers: {
           'Content-Type': 'application/json',  // Déclarez que vous envoyez du JSON
