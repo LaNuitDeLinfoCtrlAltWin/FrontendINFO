@@ -129,11 +129,9 @@ const handleQuestionClick = async (question: string) => {
   selectedQuestion.value = question; // Marque la question sélectionnée
   try {
     const mode = props.isPirateMode ? "true" : "false";
-    const questionString = `{question}`;
-    console.log(question);
     const result = await axios.post(
       `http://localhost:5023/api/chatbot/answer-questions?pirateMode=${mode}`,
-      "",
+      question,
       {
         headers: {
           'Content-Type': 'application/json',  // Déclarez que vous envoyez du JSON
