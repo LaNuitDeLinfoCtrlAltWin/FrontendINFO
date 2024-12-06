@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$route.name !== 'infos'" ref="globeContainer" class="globe-container"></div>
+  <div v-if="$route.name !== 'infos' && $route.name !== 'resources'" ref="globeContainer" class="globe-container"></div>
 </template>
 
 <script setup >

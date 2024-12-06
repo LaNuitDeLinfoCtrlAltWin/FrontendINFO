@@ -89,7 +89,7 @@ export default {
 
     const tabs = [
       { name: 'home', label: 'Accueil' },
-      { name: 'ressources', label: 'Ressources' },
+      { name: 'resources', label: 'Ressources' },
       { name: 'infos', label: 'Infos' },
     ];
 
