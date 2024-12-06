@@ -235,7 +235,7 @@ const handleQuestionClick = async (question: string) => {
   position: absolute;
   bottom: 200px; /* Affichage plus haut pour l'image pirate */
   right: 0;
-  width: 250px;
+  width: 380px;
   box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
