@@ -1,3 +1,5 @@
+@ts-nocheck
+
 <template>
   <q-layout view="lHh Lpr lFf">
     <!-- Barre d'en-tête -->

@@ -10,6 +10,8 @@ import router from './router'
 
 const app = createApp(App)
 
+app.config.compilerOptions.isCustomElement = (tag) => tag === 'Chatbot';
+
 app.use(createPinia())
 app.use(router)
 

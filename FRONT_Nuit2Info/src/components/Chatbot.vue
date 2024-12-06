@@ -80,6 +80,7 @@ const props = defineProps({
   context: {
     type: Object,
     required: true,
+    default: () => ({}),
   },
 });
 
@@ -119,6 +120,7 @@ const generateQuestions = async () => {
 
     const result = await axios.post(
       `http://localhost:5023/api/chatbot/generate-questions`,
+      // @ts-ignore
       obj[route.name],
       {
         headers: {
@@ -128,6 +130,7 @@ const generateQuestions = async () => {
     );
     console.log("Réponse API : ", result.data); // Debug
     const rawQuestions = result.data;
+    // @ts-ignore
     questions.value = rawQuestions.split("\n").map((q) => q.trim());
   } catch (error) {
     console.error("Erreur lors de la génération des questions :", error);
