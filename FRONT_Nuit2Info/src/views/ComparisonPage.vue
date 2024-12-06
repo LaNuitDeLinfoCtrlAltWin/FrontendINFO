@@ -15,8 +15,18 @@
 import { ref, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
 
+interface Point {
+  title: string;
+  description: string;
+}
+
+interface Section {
+  title: string;
+  points: Point[];
+}
+
 // Liste des contenus par section
-const data = {
+const data : Record<string, Section>  = {
   pulmon: {
     title: "LES POUMONS 🌊",
     points: [
@@ -59,12 +69,16 @@ const data = {
   },
 };
 
-const content = ref({ title: "", points: [] });
+const content = ref<Section>({
+  title: "",
+  points: [],
+});
+
 const route = useRoute();
 
 // Fonction pour mettre à jour le contenu en fonction de la route
 const updateContent = () => {
-  const section = route.name;
+  const section = route.name as string;
   content.value = data[section] || { title: "Section Inconnue", points: [] };
 };
 
