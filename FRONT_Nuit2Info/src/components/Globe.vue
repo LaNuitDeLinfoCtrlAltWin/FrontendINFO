@@ -1,5 +1,5 @@
 <template>
-  <div ref="globeContainer" class="globe-container"></div>
+  <div v-if="$route.name !== 'infos'" ref="globeContainer" class="globe-container"></div>
 </template>
 
 <script setup >
@@ -68,9 +68,9 @@ const createGlobe = async (comparisontype) => {
           return `rgba(${r}, ${g}, ${b}, 0.75)`;
         })
         .labelResolution(2);
-    } 
+    }
   }
-    
+
     else if(comparisontype === "heart" || comparisontype === "neurons" || comparisontype === "heart") {
       fetch('https://thingproxy.freeboard.io/fetch/https://www.submarinecablemap.com/api/v3/cable/cable-geo.json')
       .then(r => r.json())

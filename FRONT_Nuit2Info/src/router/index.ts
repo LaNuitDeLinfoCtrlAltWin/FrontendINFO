@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import HomePage from '../views/HomePage.vue'
 import MainLayout from '@/layouts/MainLayout.vue'
 import ComparisonPage from '@/views/ComparisonPage.vue'
+import Infos from '@/views/Infos.vue'
 
 
 const router = createRouter({
@@ -12,6 +13,7 @@ const router = createRouter({
       component: MainLayout, // Le layout principal
       children: [
         { path: '', name: 'home', component: HomePage },
+        { path: 'infos', name: 'infos', component: Infos },
         { path: 'pulmon', name: 'pulmon', component: ComparisonPage },
         { path: 'heart', name: 'heart', component: ComparisonPage},
         { path: 'skin', name: 'skin', component: ComparisonPage},
