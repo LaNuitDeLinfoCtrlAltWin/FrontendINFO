@@ -3,7 +3,7 @@
     <!-- Si mode pirate, affiche l'image du pirate -->
     <img
       v-if="isPirateMode"
-      src="/pirate.png"
+      src="../assets/img/pirate.png"
       alt="Pirate Mode"
       class="chatbot-pirate"
       @click="toggleCard"
