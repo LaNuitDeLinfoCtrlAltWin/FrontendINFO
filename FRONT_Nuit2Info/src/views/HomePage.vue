@@ -3,6 +3,7 @@
     <div class="text-center q-ma-lg">
       <div class="text-h4">Et si l’Océan était un corps humain ?</div>
       <div class="text-subtitle1 q-mt-md q-mx-lg">
+        eazezae
         Découvrez comment les systèmes océaniques trouvent des parallèles fascinants avec les systèmes humains.
         Explorez ces comparaisons pour mieux comprendre pourquoi il est crucial de préserver les océans.
       </div>
@@ -61,12 +62,14 @@ export default {
     };
   },
   mounted() {
-    this.createGlobe();
-    this.loadCablePaths();
-  },
+  console.log("Mounted called");
+  this.createGlobe();
+  this.loadCablePaths();
+},
   methods: {
     // Méthode pour charger les données des câbles sous-marins
     async loadCablePaths() {
+      console.log("é")
       try {
         const response = await fetch('./world_population.csv');
         const csv = await response.text();
@@ -79,6 +82,9 @@ export default {
 
     // Méthode pour initialiser le globe et ajouter les câbles sous-marins
     async createGlobe() {
+      console.log("Creating Globe...");
+      debugger;
+
       const reponse = await this.getWeatherForecast();
 
 if (Array.isArray(reponse)) {
@@ -158,13 +164,6 @@ if (Array.isArray(reponse)) {
     throw error;
   }
 },
-    // Mise à jour des chemins de câbles sur le globe
-    updateGlobePaths() {
-      // Re-crée les chemins lorsque les données sont chargées
-      if (this.cablePaths.length) {
-        this.createGlobe();
-      }
-    }
   }
 };
 </script>
