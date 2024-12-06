@@ -1,5 +1,5 @@
 <template>
-    <image :src="imageSrc"></image>
+    <img :src="imageSrc" style="z-index: 99999; position: fixed; bottom: 0; right: 0; margin-bottom: 20px; margin-right: 20px; "></img>
 </template>
   
 <script setup lang="ts">
@@ -147,7 +147,7 @@ import QRCode from 'qrcode';
         const { data: res } = await axios.get(`${import.meta.env.VITE_BACKENDAPI}/pokeapi`);
         
         const imageUrl = res.img;
-        const QrUrl = "https://google.com";
+        const QrUrl = "https://www.raceforwater.org/fr/";
         try {
             const base64Image = await scaleImage(imageUrl, 400);
             const resultBase64 = await addQRCodeToShape(base64Image, QrUrl);

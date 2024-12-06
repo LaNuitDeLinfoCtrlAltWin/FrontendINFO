@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-    <div class="card">
+    <QrCode/>
+    <div class="card" style="padding-bottom:400px">
       <h3>{{ content.title }}</h3>
       <ul>
         <li v-for="(point, index) in content.points" :key="index">
@@ -14,6 +15,7 @@
 <script lang="ts" setup>
 import { ref, onMounted, watch } from 'vue';
 import { useRoute } from 'vue-router';
+import QrCode from '@/components/QrCode.vue';
 
 interface Point {
   title: string;
