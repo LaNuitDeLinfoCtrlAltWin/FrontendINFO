@@ -1,13 +1,13 @@
 <template>
-    <img :src="imageSrc" style="z-index: 99; position: fixed; top: 50px; right: 0; margin-bottom: 20px; margin-right: 20px; "></img>
+    <img v-if="$route.name !== 'home' && imageSrc !=='a'" :src="imageSrc" style="z-index: 99; position: fixed; top: 50px; right: 0; margin-bottom: 20px; margin-right: 20px; ">
 </template>
-  
+
 <script setup lang="ts">
 import { ref } from 'vue';
 import axios from 'axios';
 import QRCode from 'qrcode';
 
-    const imageSrc = ref('a');
+const imageSrc = ref('a');
 
   async function scaleImage(url: string, maxDimension: number = 200): Promise<string> {
         return new Promise((resolve, reject) => {
@@ -64,7 +64,7 @@ import QRCode from 'qrcode';
                             if (alpha > 0) {
                                 const randomValue = Math.random() < 0.5 ? 0 : 255;
 
-                                data[i] = randomValue; 
+                                data[i] = randomValue;
                                 data[i + 1] = randomValue;
                                 data[i + 2] = randomValue;
                             }
@@ -110,7 +110,7 @@ import QRCode from 'qrcode';
 
         return new Promise<string>((resolve, reject) => {
             img.onload = async () => {
-                
+
                 canvas.width = img.width;
                 canvas.height = img.height;
 
@@ -143,9 +143,9 @@ import QRCode from 'qrcode';
         });
     }
 
-    (async () => { 
+    (async () => {
         const { data: res } = await axios.get(`${import.meta.env.VITE_BACKENDAPI}/pokeapi`);
-        
+
         const imageUrl = res.img;
         const QrUrl = "https://www.raceforwater.org/fr/";
         try {
