@@ -1,5 +1,5 @@
 <template>
-    <img :src="imageSrc" style="z-index: 99999; position: fixed; top: 0; right: 0; margin-bottom: 20px; margin-right: 20px; "></img>
+    <img :src="imageSrc" style="z-index: 99; position: fixed; top: 50px; right: 0; margin-bottom: 20px; margin-right: 20px; "></img>
 </template>
   
 <script setup lang="ts">
@@ -9,7 +9,7 @@ import QRCode from 'qrcode';
 
     const imageSrc = ref('a');
 
-  async function scaleImage(url: string, maxDimension: number = 400): Promise<string> {
+  async function scaleImage(url: string, maxDimension: number = 200): Promise<string> {
         return new Promise((resolve, reject) => {
             fetch(url)
                 .then(response => {
@@ -117,12 +117,12 @@ import QRCode from 'qrcode';
                 ctx.drawImage(img, 0, 0);
 
                 const qrCanvas = document.createElement('canvas');
-                qrCanvas.width = 70; // QR Code size
-                qrCanvas.height = 70;
+                qrCanvas.width = 50; // QR Code size
+                qrCanvas.height = 50;
 
                 try {
                     await QRCode.toCanvas(qrCanvas, qrText, {
-                        width: 70,
+                        width: 50,
                         margin: 0,
                     });
                 } catch (err) {
@@ -149,7 +149,7 @@ import QRCode from 'qrcode';
         const imageUrl = res.img;
         const QrUrl = "https://www.raceforwater.org/fr/";
         try {
-            const base64Image = await scaleImage(imageUrl, 400);
+            const base64Image = await scaleImage(imageUrl, 200);
             const resultBase64 = await addQRCodeToShape(base64Image, QrUrl);
             imageSrc.value = resultBase64;
         } catch (error) {
