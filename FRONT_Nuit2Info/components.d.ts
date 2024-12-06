@@ -18,6 +18,7 @@ declare module 'vue' {
     QList: typeof import('quasar')['QList']
     QPage: typeof import('quasar')['QPage']
     QPageContainer: typeof import('quasar')['QPageContainer']
+    QrCode: typeof import('./src/components/QrCode.vue')['default']
     QTab: typeof import('quasar')['QTab']
     QTabs: typeof import('quasar')['QTabs']
     QToolbar: typeof import('quasar')['QToolbar']
