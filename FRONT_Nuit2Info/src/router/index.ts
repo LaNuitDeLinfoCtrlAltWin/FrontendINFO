@@ -15,7 +15,7 @@ const router = createRouter({
         { path: 'pulmon', name: 'pulmon', component: ComparisonPage },
         { path: 'heart', name: 'heart', component: ComparisonPage},
         { path: 'skin', name: 'skin', component: ComparisonPage},
-        { path: 'liver', name: 'liver', component: ComparisonPage},
+        { path: 'stomac', name: 'stomac', component: ComparisonPage},
         { path: 'neurons', name: 'neurons', component: ComparisonPage},
         { path: 'muscles', name: 'muscles', component: ComparisonPage},
         {path: 'blood', name: 'blood', component: ComparisonPage},
