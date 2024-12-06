@@ -78,7 +78,7 @@ export default {
       { name: 'heart', label: 'Le Coeur' },
       { name: 'pulmon', label: 'Les Poumons' },
       { name: 'skin', label: 'La Peau' },
-      { name: 'liver', label: 'Le Foie' },
+      { name: 'liver', label: 'Le Système Digestif' },
       { name: 'neurons', label: 'Les Neurones' },
       { name: 'muscles', label: 'Les Muscles' },
       { name: 'blood', label: 'Le Sang' },
