@@ -84,13 +84,11 @@ export default {
 
 /* Left-align the text inside the card */
 .text-h6 {
-  text-align: center;
   font-weight: 700;
   font-size: 24px;
 }
 
 p {
-  text-align: center;
   padding-top: 16px;
 }
 </style>

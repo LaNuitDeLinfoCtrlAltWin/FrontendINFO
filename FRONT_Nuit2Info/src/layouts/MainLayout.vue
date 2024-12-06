@@ -40,9 +40,11 @@
       </q-list>
     </q-drawer>
 
-    <!-- Contenu principal -->
+    <!-- Contenu principal avec transition -->
     <q-page-container>
-      <router-view />
+      <transition name="fade" mode="out-in">
+        <router-view />
+      </transition>
       <Globe style="position: absolute; top: 50px" :style="$route.name === 'home' ? 'z-index: -1' : ''"/>
     </q-page-container>
   </q-layout>
@@ -54,7 +56,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
 import Globe from "@/components/Globe.vue";
-import QrCode from '@/components/QrCode.vue'; 
+import QrCode from '@/components/QrCode.vue';
 import router from '@/router'
 
 export default {
@@ -84,8 +86,6 @@ export default {
     ];
 
     onMounted(() => {
-      // const savedMode = localStorage.getItem('darkMode');
-      // darkMode.value = savedMode === 'true';
       $q.dark.set(true);
     });
 
@@ -120,19 +120,31 @@ export default {
 </script>
 
 <style lang="scss">
+/* Style pour les onglets arrondis */
 .rounded-tab {
   border-radius: 12px;
   transition: background-color 0.3s ease, font-weight 0.3s ease;
 }
 
+///* Transition de fondu pour les pages */
+//.fade-enter-active, .fade-leave-active {
+//  transition: opacity 0.5s;
+//}
+//.fade-enter-from, .fade-leave-to {
+//  opacity: 0;
+//}
+
+/* Onglet actif */
 .q-tab.q-tab--active {
   font-weight: bold;
 }
 
+/* Supprimer l'indicateur visuel de l'onglet actif */
 .q-tab.q-tab--active .q-tab__indicator {
   display: none;
 }
 
+/* Textes alignés à gauche */
 .text-left {
   text-align: left;
 }
