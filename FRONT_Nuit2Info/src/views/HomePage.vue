@@ -157,7 +157,7 @@ if (Array.isArray(reponse)) {
     // },
  }, async getWeatherForecast() {
   try {
-    const response = await axios.get(`http://localhost:5023/Weather`);
+    const response = await axios.get(`${import.meta.env.VITE_BACKENDAPI}/Weather`);
     return response.data;
   } catch (error) {
     console.error('Erreur lors de l\'appel API :', error);

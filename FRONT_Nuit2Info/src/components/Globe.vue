@@ -14,7 +14,7 @@ const route = useRoute();  // Utilisation de useRoute pour accéder à la route 
 // Fonction pour récupérer les prévisions météo
 const getWeatherForecast = async () => {
   try {
-    const response = await axios.get(`http://localhost:5023/Weather`);
+    const response = await axios.get(`${import.meta.env.VITE_BACKENDAPI}/Weather`);
     return response.data;
   } catch (error) {
     console.error('Erreur lors de l\'appel API :', error);
