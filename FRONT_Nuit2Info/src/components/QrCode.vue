@@ -4,6 +4,7 @@
   
 <script setup lang="ts">
 import { ref } from 'vue';
+import axios from 'axios';
 import QRCode from 'qrcode';
 
     const imageSrc = ref('a');
@@ -142,8 +143,10 @@ import QRCode from 'qrcode';
         });
     }
 
-    (async () => {
-        const imageUrl = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/130.png";
+    (async () => { 
+        const { data: res } = await axios.get(`${import.meta.env.VITE_BACKENDAPI}/pokeapi`);
+        
+        const imageUrl = res.img;
         const QrUrl = "https://google.com";
         try {
             const base64Image = await scaleImage(imageUrl, 400);
