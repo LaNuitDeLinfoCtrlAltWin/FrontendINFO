@@ -107,7 +107,7 @@ const data : Record<string, Section>  = {
       },
     ],
   },
-  liver: {
+  stomac: {
     title: "Le Système Digestif",
     points: [
       {
@@ -277,7 +277,7 @@ watch(
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
-  width: 450px;
+  width: 550px;
   height: auto;
   left: 50px;
 }
