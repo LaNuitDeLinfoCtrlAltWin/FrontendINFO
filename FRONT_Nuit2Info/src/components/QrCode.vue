@@ -122,7 +122,6 @@ import QRCode from 'qrcode';
                 try {
                     await QRCode.toCanvas(qrCanvas, qrText, {
                         width: 70,
-                        height: 70,
                         margin: 0,
                     });
                 } catch (err) {
