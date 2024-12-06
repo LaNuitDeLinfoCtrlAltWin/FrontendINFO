@@ -1,5 +1,5 @@
 <template>
-    <img :src="imageSrc" style="z-index: 99999; position: fixed; bottom: 0; right: 0; margin-bottom: 20px; margin-right: 20px; "></img>
+    <img :src="imageSrc" style="z-index: 99999; position: fixed; top: 0; right: 0; margin-bottom: 20px; margin-right: 20px; "></img>
 </template>
   
 <script setup lang="ts">
