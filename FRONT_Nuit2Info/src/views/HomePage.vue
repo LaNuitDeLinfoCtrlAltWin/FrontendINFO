@@ -161,7 +161,7 @@ export default {
     // },
  }, async getWeatherForecast() {
   try {
-    const response = await axios.get(`${import.meta.env.VITE_BACKENDAPI}/Weather`);
+    const response = await axios.get(`${import.meta.env.VITE_BACKENDAPI}/weather/weather`);
     return response.data;
   } catch (error) {
     console.error('Erreur lors de l\'appel API :', error);
