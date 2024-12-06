@@ -7,6 +7,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Chatbot: typeof import('./src/components/Chatbot.vue')['default']
     Globe: typeof import('./src/components/Globe.vue')['default']
     QBtn: typeof import('quasar')['QBtn']
     QCard: typeof import('quasar')['QCard']
@@ -21,6 +22,7 @@ declare module 'vue' {
     QrCode: typeof import('./src/components/QrCode.vue')['default']
     QTab: typeof import('quasar')['QTab']
     QTabs: typeof import('quasar')['QTabs']
+    QToggle: typeof import('quasar')['QToggle']
     QToolbar: typeof import('quasar')['QToolbar']
     QToolbarTitle: typeof import('quasar')['QToolbarTitle']
     RouterLink: typeof import('vue-router')['RouterLink']
