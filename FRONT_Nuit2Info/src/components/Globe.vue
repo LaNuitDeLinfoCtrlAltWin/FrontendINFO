@@ -14,7 +14,7 @@ const route = useRoute();  // Utilisation de useRoute pour accéder à la route 
 // Fonction pour récupérer les prévisions météo
 const getWeatherForecast = async () => {
   try {
-    const response = await axios.get(`http://localhost:5023/weather/weather`);
+    const response = await axios.get(`${import.meta.env.VITE_BACKENDAPI}/weather/weather`);
     return response.data;
   } catch (error) {
     console.error('Erreur lors de l\'appel API :', error);
@@ -28,7 +28,8 @@ const createGlobe = async (comparisontype) => {
   const globe = Globe()
     .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
     .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
-    .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')(globeContainer.value);
+    // .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+  (globeContainer.value);
 
   const controls = globe.controls();
   controls.enableZoom = false;

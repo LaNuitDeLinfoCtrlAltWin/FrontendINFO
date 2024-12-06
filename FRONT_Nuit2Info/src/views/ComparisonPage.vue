@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <div class="container" v-if="!isMobile">
+    <QrCode/>
     <div class="card">
       <h3>{{ content.title }}</h3>
       <ul>
@@ -9,11 +10,24 @@
       </ul>
     </div>
   </div>
+  <div v-else class="">
+    <div class="q-ml-lg text-h6 text-bold">{{ content.title }}</div>
+    <div class="q-ml-lg text-subtitle1 q-mt-sm">Scrollez pour en savoir plus ↓ </div>
+    <Globe @click="onGlobeClick" />
+    <ul>
+      <li v-for="(point, index) in content.points" :key="index">
+        <span>{{ point.title }}: </span>{{ point.description }}
+      </li>
+    </ul>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onMounted, watch } from 'vue';
+import { ref, onMounted, watch, computed } from 'vue'
 import { useRoute } from 'vue-router';
+import QrCode from '@/components/QrCode.vue';
+import { useQuasar } from 'quasar'
+import Globe from '@/components/Globe.vue'
 
 interface Point {
   title: string;
@@ -23,7 +37,16 @@ interface Point {
 interface Section {
   title: string;
   points: Point[];
+
 }
+const emit = defineEmits(['globe-click']);
+
+const onGlobeClick = () => {
+  emit('globe-click');
+};
+
+const $q = useQuasar();
+const isMobile = computed(() => $q.screen.lt.md);
 
 // Liste des contenus par section
 const data : Record<string, Section>  = {

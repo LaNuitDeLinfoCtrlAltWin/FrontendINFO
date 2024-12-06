@@ -28,6 +28,14 @@
             class="rounded-tab"
           />
         </q-tabs>
+
+        <!-- Toggle pour le mode pirate -->
+        <q-toggle
+          v-if="!isMobile"
+          v-model="isPirateMode"
+          label="Mode pirate"
+          @update:model-value="togglePirateMode"
+        />
       </q-toolbar>
     </div>
 
@@ -37,56 +45,60 @@
         <q-item clickable v-for="(tab, index) in tabs" :key="index" @click="goTo(tab.name)">
           <q-item-section>{{ tab.label }}</q-item-section>
         </q-item>
+        <q-toggle
+          v-model="isPirateMode"
+          label="Mode pirate"
+          @update:model-value="togglePirateMode"
+        />
       </q-list>
     </q-drawer>
 
     <!-- Contenu principal avec transition -->
     <q-page-container>
       <transition name="fade" mode="out-in">
-        <router-view />
+        <router-view @globe-click="startChatbot"/>
       </transition>
-      <Globe style="position: absolute; top: 50px" :style="$route.name === 'home' ? 'z-index: -1' : ''"/>
+      <Globe v-if="!isMobile" style="position: absolute; top: 50px" :style="$route.name === 'home' ? 'z-index: -1' : ''" @click="startChatbot"/>
     </q-page-container>
+    <QrCode/>
+    <Chatbot v-if="chatbotActive" :is-active="chatbotActive" :is-pirate-mode="isPirateMode" />
   </q-layout>
-  <QrCode/>
 </template>
 
 <script lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, watch } from 'vue';
 import { useQuasar } from 'quasar';
-import { useRouter } from 'vue-router';
+import { useRouter, onBeforeRouteUpdate } from 'vue-router';
 import Globe from "@/components/Globe.vue";
 import QrCode from '@/components/QrCode.vue';
-import router from '@/router'
+import Chatbot from '@/components/Chatbot.vue';
+import router from '@/router';
 
 export default {
   name: 'MainLayout',
-  methods: {
-    router() {
-      return router
-    }
-  },
-  components: {Globe},
+  components: { Chatbot, Globe, QrCode },
   setup() {
     const $q = useQuasar();
     const router = useRouter();
     const drawerOpen = ref(false);
     const darkMode = ref(false);
 
+    // État pour le mode pirate
+    const isPirateMode = ref(false);
+    const chatbotActive = ref(false); // Contrôle si le chatbot est actif
+
     const tabs = [
       { name: 'home', label: 'Accueil' },
-      { name: 'heart', label: 'Le Coeur' },
-      { name: 'pulmon', label: 'Les Poumons' },
-      { name: 'skin', label: 'La Peau' },
-      { name: 'stomac', label: 'Le Système Digestif' },
-      { name: 'neurons', label: 'Les Neurones' },
-      { name: 'muscles', label: 'Les Muscles' },
-      { name: 'blood', label: 'Le Sang' },
-      { name: 'immunity', label: 'Le Système Immunitaire' },
+      { name: 'ressources', label: 'Ressources' },
+      { name: 'infos', label: 'Infos' },
     ];
 
     onMounted(() => {
       $q.dark.set(true);
+
+      // Récupère l'état du mode pirate depuis localStorage
+      const savedPirateMode = localStorage.getItem('pirateMode');
+      isPirateMode.value = savedPirateMode === 'true';
     });
 
     const isMobile = computed(() => $q.screen.lt.md);
@@ -101,23 +113,43 @@ export default {
       localStorage.setItem('darkMode', darkMode.value.toString());
     };
 
+    const togglePirateMode = (value: boolean) => {
+      isPirateMode.value = value;
+      localStorage.setItem('pirateMode', value.toString());
+    };
+
     const goTo = (routeName: string) => {
       router.push({ name: routeName });
       drawerOpen.value = false; // Ferme le drawer en mobile
     };
+
+    const startChatbot = () => {
+      chatbotActive.value = true;
+      console.log('Chatbot started');
+    };
+
+    // Définir chatbotActive à false lors d'un changement de route
+    onBeforeRouteUpdate(() => {
+      chatbotActive.value = false;
+    });
 
     return {
       tabs,
       drawerOpen,
       darkMode,
       isMobile,
+      isPirateMode,
+      chatbotActive,
       toggleDrawer,
       toggleDarkMode,
+      togglePirateMode,
       goTo,
+      startChatbot,
     };
   },
 };
 </script>
+
 
 <style lang="scss">
 /* Style pour les onglets arrondis */
@@ -126,10 +158,10 @@ export default {
   transition: background-color 0.3s ease, font-weight 0.3s ease;
 }
 
-///* Transition de fondu pour les pages */
-//.fade-enter-active, .fade-leave-active {
-//  transition: opacity 0.5s;
-//}
+/* Transition de fondu pour les pages */
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.5s;
+}
 //.fade-enter-from, .fade-leave-to {
 //  opacity: 0;
 //}
