@@ -27,7 +27,8 @@ const createGlobe = async (comparisontype) => {
   const globe = Globe()
     .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
     .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
-    .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')(globeContainer.value);
+    // .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png')
+  (globeContainer.value);
 
   const controls = globe.controls();
   controls.enableZoom = false;

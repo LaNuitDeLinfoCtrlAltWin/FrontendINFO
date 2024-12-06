@@ -31,6 +31,7 @@
 
         <!-- Toggle pour le mode pirate -->
         <q-toggle
+          v-if="!isMobile"
           v-model="isPirateMode"
           label="Mode pirate"
           @update:model-value="togglePirateMode"
@@ -44,15 +45,20 @@
         <q-item clickable v-for="(tab, index) in tabs" :key="index" @click="goTo(tab.name)">
           <q-item-section>{{ tab.label }}</q-item-section>
         </q-item>
+        <q-toggle
+          v-model="isPirateMode"
+          label="Mode pirate"
+          @update:model-value="togglePirateMode"
+        />
       </q-list>
     </q-drawer>
 
     <!-- Contenu principal avec transition -->
     <q-page-container>
       <transition name="fade" mode="out-in">
-        <router-view />
+        <router-view @globe-click="startChatbot"/>
       </transition>
-      <Globe style="position: absolute; top: 50px" :style="$route.name === 'home' ? 'z-index: -1' : ''" @click="startChatbot"/>
+      <Globe v-if="!isMobile" style="position: absolute; top: 50px" :style="$route.name === 'home' ? 'z-index: -1' : ''" @click="startChatbot"/>
     </q-page-container>
     <QrCode/>
     <Chatbot v-if="chatbotActive" :is-active="chatbotActive" :is-pirate-mode="isPirateMode" />
