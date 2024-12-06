@@ -119,7 +119,7 @@ const generateQuestions = async () => {
     };
 
     const result = await axios.post(
-      `http://localhost:5023/api/chatbot/generate-questions`,
+      `${import.meta.env.VITE_BACKENDAPI}/api/chatbot/generate-questions`,
       // @ts-ignore
       obj[route.name],
       {
@@ -146,7 +146,7 @@ const handleQuestionClick = async (question: string) => {
   try {
     const mode = props.isPirateMode ? "true" : "false";
     const result = await axios.post(
-      `http://localhost:5023/api/chatbot/answer-questions?pirateMode=${mode}`,
+      `${import.meta.env.VITE_BACKENDAPI}/api/chatbot/answer-questions?pirateMode=${mode}`,
       question,
       {
         headers: {
