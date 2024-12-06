@@ -16,10 +16,10 @@
     <!-- La carte du chatbot -->
     <q-card
       v-if="showCard"
-      :class="{'chatbot-card-pirate': isPirateMode, 'chatbot-card': !isPirateMode}"
+      :class="{ 'chatbot-card-pirate': isPirateMode, 'chatbot-card': !isPirateMode }"
     >
       <q-card-section class="card-header">
-        <div>Le Chatbot</div>
+        <div>Chatbot</div>
         <q-btn
           dense
           flat
@@ -29,18 +29,43 @@
           class="close-button"
         />
       </q-card-section>
+
       <q-card-section>
-        <p v-if="isPirateMode">Arrr ! Le Chatbot Pirate est prêt à naviguer.</p>
-        <p v-else>Le Chatbot est prêt à fonctionner.</p>
+        <!-- Loader -->
+        <div v-if="isLoading" class="loader"></div>
+
+        <!-- Bouton de démarrage -->
+        <q-btn
+          v-if="!questions.length && !isLoading"
+          label="Démarrer"
+          @click="generateQuestions"
+        ></q-btn>
+
+        <!-- Affichage des questions -->
+        <div v-if="questions.length && !selectedQuestion">
+          <q-btn
+            v-for="(question, index) in questions"
+            :key="index"
+            :label="question"
+            class="question-button"
+            @click="handleQuestionClick(question)"
+          ></q-btn>
+        </div>
+
+        <!-- Affichage de la réponse -->
+        <div v-if="response">
+          <p class="response">{{ response }}</p>
+        </div>
       </q-card-section>
     </q-card>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref } from "vue";
+import axios from "axios";
 
-// Props pour les modes
+// Props pour les modes et le contexte
 const props = defineProps({
   isActive: {
     type: Boolean,
@@ -50,40 +75,76 @@ const props = defineProps({
     type: Boolean,
     required: true,
   },
+  context: {
+    type: Object,
+    required: true,
+  },
 });
 
-// Réactivité pour afficher ou cacher la carte
+// Réactivité
 const showCard = ref(false);
+const isLoading = ref(false);
+const questions = ref<string[]>([]);
+const selectedQuestion = ref<string | null>(null);
+const response = ref<string | null>(null);
 
-// Fonction pour afficher ou cacher la carte en cliquant sur la bulle ou l'image
+// Fonction pour afficher ou cacher la carte
 const toggleCard = () => {
   showCard.value = !showCard.value;
 };
 
-// Fonction pour fermer la carte en cliquant sur la croix
+// Fonction pour fermer la carte
 const closeCard = () => {
   showCard.value = false;
 };
 
-// Surveiller les changements de `isActive`
-watch(
-  () => props.isActive,
-  (newValue) => {
-    if (newValue) {
-      setTimeout(() => {
-        showCard.value = true;
-      }, 2000);
-    }
+const generateQuestions = async () => {
+  console.log("Bouton Démarrer cliqué"); // Debug
+  isLoading.value = true;
+  try {
+    const result = await axios.post(
+      `http://localhost:5023/api/chatbot/generate-questions`,
+      // Enveloppez la chaîne dans un objet
+      "",
+      {
+        headers: {
+          'Content-Type': 'application/json',  // Déclarez que vous envoyez du JSON
+        }
+      }
+    );
+    console.log("Réponse API : ", result.data); // Debug
+    const rawQuestions = result.data;
+    questions.value = rawQuestions.split("\n").map((q) => q.trim());
+  } catch (error) {
+    console.error("Erreur lors de la génération des questions :", error);
+  } finally {
+    isLoading.value = false;
   }
-);
+};
 
-onMounted(() => {
-  if (props.isActive) {
-    setTimeout(() => {
-      showCard.value = true;
-    }, 1000);
+
+// Gestion de la sélection de question
+const handleQuestionClick = async (question: string) => {
+  selectedQuestion.value = question; // Marque la question sélectionnée
+  try {
+    const mode = props.isPirateMode ? "true" : "false";
+    const questionString = `{question}`;
+    console.log(question);
+    const result = await axios.post(
+      `http://localhost:5023/api/chatbot/answer-questions?pirateMode=${mode}`,
+      "",
+      {
+        headers: {
+          'Content-Type': 'application/json',  // Déclarez que vous envoyez du JSON
+        }
+      }
+    );
+
+    response.value = result.data; // Contient la réponse formatée
+  } catch (error) {
+    console.error("Erreur lors de l'obtention de la réponse :", error);
   }
-});
+};
 </script>
 
 <style scoped>
@@ -130,7 +191,7 @@ onMounted(() => {
   cursor: pointer;
   animation: slide-in-natural 0.7s cubic-bezier(0.25, 1, 0.5, 1) forwards,
   float 3s infinite ease-in-out;
-  }
+}
 
 @media (max-width: 600px) {
   .chatbot-pirate {
