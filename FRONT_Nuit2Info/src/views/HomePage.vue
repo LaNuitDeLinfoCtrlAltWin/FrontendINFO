@@ -28,6 +28,7 @@
 </template>
 
 <script lang="ts">
+// @ts-ignore
 import Globe from 'globe.gl';
 import * as d3 from 'd3-dsv'; 
 import axios from 'axios';
@@ -57,8 +58,7 @@ export default {
         { name: "muscles", title: "Les Muscles", description: "Force motrice : Vagues et Marées." },
         { name: "blood", title: "Le Sang", description: "Écosystèmes marins : Transport de nutriments." },
         { name: "immunity", title: "Le Système Immunitaire", description: "Barrières naturelles : Coraux et Zones protégées." },
-      ],
-      cablePaths: {}  // Array to hold the cable paths data
+      ]
     };
   },
   mounted() {
@@ -87,41 +87,45 @@ export default {
 
       const reponse = await this.getWeatherForecast();
 
-if (Array.isArray(reponse)) {
-  const featureCollection = {
-    "type": "FeatureCollection",
-    "features": reponse.map((w, index) => ({
-      "type": "Feature",
-      "properties": {
-        "id": `marine-data-point-${index + 1}`,  // Unique ID for each point
-        "name": `${w.current_weather.temperature}°C`,  // Add temperature to name
-      },
-      "geometry": {
-        "type": "Point",
-        "coordinates": [w.longitude, w.latitude]  // Longitude and Latitude in coordinates
-      }
-    }))
-  };
+    if (Array.isArray(reponse)) {
+      const featureCollection = {
+        "type": "FeatureCollection",
+        "features": reponse.map((w, index) => ({
+          "type": "Feature",
+          "properties": {
+            "id": `marine-data-point-${index + 1}`,  // Unique ID for each point
+            "name": `${w.current_weather.temperature}°C`,  // Add temperature to name
+          },
+          "geometry": {
+            "type": "Point",
+            "coordinates": [w.longitude, w.latitude]  // Longitude and Latitude in coordinates
+          }
+        }))
+      };
 
-  // Assuming you want to store this featureCollection
-  this.cablePaths = featureCollection;
-} else {
-  console.error('Expected an array, but got:', reponse);
-}
+      // Assuming you want to store this featureCollection
+      // @ts-ignore
+      this.cablePaths = featureCollection;
+    } else {
+      console.error('Expected an array, but got:', reponse);
+    }
 
-      console.log('places')
-              const globe = Globe()(this.$refs.globeContainer)
-        .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
-        .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
-        .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png');
-        globe
-  .labelsData(this.cablePaths.features)
-  .labelLat(d => d.geometry.coordinates[1]) // Accès à la latitude
-  .labelLng(d => d.geometry.coordinates[0]) // Accès à la longitude
-  .labelText(d => d.properties.name) // Texte des labels
-  .labelSize(() => 1) // Taille fixe pour éviter les dépendances sur des données manquantes
-  .labelDotRadius(() =>1.5) // Rayon fixe pour les dots
-  .labelColor((d) => {
+    console.log('places')
+    // @ts-ignore
+    const globeInstance = Globe()(this.$refs.globeContainer)
+      .globeImageUrl('//unpkg.com/three-globe/example/img/earth-dark.jpg')
+      .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
+      .backgroundImageUrl('//unpkg.com/three-globe/example/img/night-sky.png');
+    // @ts-ignore
+    globeInstance
+    // @ts-ignore
+    .labelsData(this.cablePaths.features)
+    .labelLat((d: { geometry: { coordinates: [number, number] } }) => d.geometry.coordinates[1])
+    .labelLng((d: { geometry: { coordinates: [number, number] } }) => d.geometry.coordinates[0])
+    .labelText((d: { properties: { name: string } }) => d.properties.name)
+    .labelSize(() => 1) // Taille fixe pour éviter les dépendances sur des données manquantes
+    .labelDotRadius(() =>1.5) // Rayon fixe pour les dots
+    .labelColor((d: { properties: { name: string } }) => {
     // Récupérer la valeur et la convertir en float
     const value = parseFloat(d.properties.name);
     
