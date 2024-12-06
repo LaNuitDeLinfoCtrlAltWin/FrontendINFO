@@ -16,6 +16,7 @@
     "@quasar/extras": "^1.16.15",
     "@quasar/vite-plugin": "^1.8.1",
     "axios": "^1.7.9",
+    "d3-dsv": "^3.0.1",
     "globe.gl": "^2.34.0",
     "pinia": "^2.2.6",
     "qrcode": "^1.5.4",
