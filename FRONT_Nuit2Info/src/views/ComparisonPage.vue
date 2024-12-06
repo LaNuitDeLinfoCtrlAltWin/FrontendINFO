@@ -50,7 +50,7 @@ const isMobile = computed(() => $q.screen.lt.md);
 
 // Liste des contenus par section
 const data : Record<string, Section>  = {
-  pulmon: {
+  lungs: {
     title: "Les Poumons",
     points: [
       {

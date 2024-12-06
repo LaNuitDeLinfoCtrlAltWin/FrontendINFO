@@ -30,7 +30,7 @@
 <script lang="ts">
 // @ts-ignore
 import Globe from 'globe.gl';
-import * as d3 from 'd3-dsv'; 
+import * as d3 from 'd3-dsv';
 import axios from 'axios';
 import { useRouter } from "vue-router";
 
@@ -51,7 +51,7 @@ export default {
     return {
       comparisons: [
         { name: "heart", title: "Le Coeur", description: "Système circulatoire : Courants Marins et Pompe thermohaline." },
-        { name: "pulmon", title: "Les Poumons", description: "Échanges gazeux : Photosynthèse et dissolution du CO2." },
+        { name: "lungs", title: "Les Poumons", description: "Échanges gazeux : Photosynthèse et dissolution du CO2." },
         { name: "skin", title: "La Peau", description: "Régulation de température : Salinité et Thermorégulation." },
         { name: "stomac", title: "Le Système Digestif", description: "Filtration : Purification et Recyclage dans l'océan." },
         { name: "neurons", title: "Les Neurones", description: "Réseau de communication : Signalisation par les courants." },

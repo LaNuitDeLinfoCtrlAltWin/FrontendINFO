@@ -17,7 +17,7 @@ const router = createRouter({
         { path: '', name: 'home', component: HomePage },
         { path: 'infos', name: 'infos', component: Infos },
         { path: 'resources', name: 'resources', component: Resources },
-        { path: 'pulmon', name: 'pulmon', component: ComparisonPage },
+        { path: 'lungs', name: 'lungs', component: ComparisonPage },
         { path: 'heart', name: 'heart', component: ComparisonPage},
         { path: 'skin', name: 'skin', component: ComparisonPage},
         { path: 'stomac', name: 'stomac', component: ComparisonPage},
