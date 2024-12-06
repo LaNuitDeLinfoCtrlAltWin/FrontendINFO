@@ -100,13 +100,23 @@ const closeCard = () => {
 };
 
 const generateQuestions = async () => {
-  console.log("Bouton Démarrer cliqué"); // Debug
   isLoading.value = true;
   try {
+
+    const obj = {
+      heart: "Système circulatoire : Courants Marins et Pompe thermohaline.",
+      lungs: "Échanges gazeux : Photosynthèse et dissolution du CO2.",
+      skin: "Régulation de température : Salinité et Thermorégulation.",
+      stomac: "Filtration : Purification et Recyclage dans l'océan.",
+      neurons: "Réseau de communication : Signalisation par les courants.",
+      muscles: "Force motrice : Vagues et Marées.",
+      blood: "Écosystèmes marins : Transport de nutriments.",
+      immunity: "Barrières naturelles : Coraux et Zones protégées."
+    };
+
     const result = await axios.post(
       `http://localhost:5023/api/chatbot/generate-questions`,
-      // Enveloppez la chaîne dans un objet
-      "",
+      obj[$route.name],
       {
         headers: {
           'Content-Type': 'application/json',  // Déclarez que vous envoyez du JSON
