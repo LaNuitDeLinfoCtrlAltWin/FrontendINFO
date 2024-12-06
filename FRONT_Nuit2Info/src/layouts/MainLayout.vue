@@ -46,6 +46,7 @@
       <Globe style="position: absolute; top: 50px" :style="$route.name === 'home' ? 'z-index: -1' : ''"/>
     </q-page-container>
   </q-layout>
+  <QrCode/>
 </template>
 
 <script lang="ts">
@@ -53,6 +54,7 @@ import { ref, computed, onMounted } from 'vue';
 import { useQuasar } from 'quasar';
 import { useRouter } from 'vue-router';
 import Globe from "@/components/Globe.vue";
+import QrCode from '@/components/QrCode.vue'; 
 import router from '@/router'
 
 export default {
