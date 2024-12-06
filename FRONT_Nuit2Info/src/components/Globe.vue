@@ -15,6 +15,9 @@ onMounted(() => {
     .bumpImageUrl('//unpkg.com/three-globe/example/img/earth-topology.png')
     (globeContainer.value);
 
+  const controls = globe.controls();
+  controls.enableZoom = false;
+
 });
 </script>
 
@@ -23,4 +26,5 @@ onMounted(() => {
   width: 100%;
   overflow: hidden;
 }
+
 </style>

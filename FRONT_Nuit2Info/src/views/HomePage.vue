@@ -45,14 +45,14 @@ export default {
   data() {
     return {
       comparisons: [
-        { name: "heart", title: "Le Coeur", description: "Système circulatoire : courants marins et pompe thermohaline." },
-        { name: "pulmon", title: "Les Poumons", description: "Échanges gazeux : photosynthèse et dissolution du CO2." },
-        { name: "skin", title: "La Peau", description: "Régulation de température : salinité et thermorégulation." },
-        { name: "liver", title: "Le Foie", description: "Filtration : purification et recyclage dans l'océan." },
-        { name: "neurons", title: "Les Neurones", description: "Réseau de communication : signalisation par les courants." },
-        { name: "muscles", title: "Les Muscles", description: "Force motrice : vagues et marées." },
-        { name: "blood", title: "Le Sang", description: "Écosystèmes marins : transport de nutriments." },
-        { name: "immunity", title: "Le Système Immunitaire", description: "Barrières naturelles : coraux et zones protégées." },
+        { name: "heart", title: "Le Coeur", description: "Système circulatoire : Courants Marins et Pompe thermohaline." },
+        { name: "pulmon", title: "Les Poumons", description: "Échanges gazeux : Photosynthèse et dissolution du CO2." },
+        { name: "skin", title: "La Peau", description: "Régulation de température : Salinité et Thermorégulation." },
+        { name: "liver", title: "Le Foie", description: "Filtration : Purification et Recyclage dans l'océan." },
+        { name: "neurons", title: "Les Neurones", description: "Réseau de communication : Signalisation par les courants." },
+        { name: "muscles", title: "Les Muscles", description: "Force motrice : Vagues et Marées." },
+        { name: "blood", title: "Le Sang", description: "Écosystèmes marins : Transport de nutriments." },
+        { name: "immunity", title: "Le Système Immunitaire", description: "Barrières naturelles : Coraux et Zones protégées." },
       ],
     };
   },
@@ -84,10 +84,13 @@ export default {
 
 /* Left-align the text inside the card */
 .text-h6 {
-  text-align: left;
+  text-align: center;
+  font-weight: 700;
+  font-size: 24px;
 }
 
 p {
-  text-align: left;
+  text-align: center;
+  padding-top: 16px;
 }
 </style>
