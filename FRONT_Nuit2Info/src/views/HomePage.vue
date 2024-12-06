@@ -3,7 +3,6 @@
     <div class="text-center q-ma-lg">
       <div class="text-h4">Et si l’Océan était un corps humain ?</div>
       <div class="text-subtitle1 q-mt-md q-mx-lg">
-        eazezae
         Découvrez comment les systèmes océaniques trouvent des parallèles fascinants avec les systèmes humains.
         Explorez ces comparaisons pour mieux comprendre pourquoi il est crucial de préserver les océans.
       </div>
