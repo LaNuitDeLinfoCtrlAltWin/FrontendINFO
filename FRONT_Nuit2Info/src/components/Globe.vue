@@ -32,7 +32,6 @@ const createGlobe = async (comparisontype) => {
 
   const controls = globe.controls();
   controls.enableZoom = false;
-  console.log(comparisontype)
   if (comparisontype === "skin") {
     // Récupération des données météorologiques et affichage sur le globe
     const weatherData = await getWeatherForecast();
@@ -71,74 +70,27 @@ const createGlobe = async (comparisontype) => {
     } 
   }
     
-    else if(comparisontype === "pulmon") {
-
-  const MAP_CENTER = { lat: 37.6, lng: -16.6, altitude: 0.4 };
-  const OPACITY = 0.3;
-
-  // Créer le globe avec three-globe
-  const myGlobe = new Globe(document.getElementById('globeViz'))
-    .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
-    .arcDashLength(0.4)
-    .arcDashGap(0.2)
-    .arcDashAnimateTime(1500)
-    .pointColor(() => 'orange')
-    .pointAltitude(0)
-    .pointRadius(0.04)
-    .pointsMerge(true);
-
-  // Fonction pour récupérer les données des câbles sous-marins
-  const getCableData = () => {
-    return fetch('https://thingproxy.freeboard.io/fetch/https://www.submarinecablemap.com/api/v3/cable/cable-geo.json')
-      .then(response => response.json())
-      .then(data => data.data);
-  };
-
-  // Transformer les données des câbles pour les adapter au format du globe
-  const parseCableData = (cables) => {
-    const cablePaths = [];
-    cables.forEach(cable => {
-      if (cable.geometry && cable.geometry.coordinates) {
-        cable.geometry.coordinates.forEach(coords => {
-          cablePaths.push({
-            coords,
-            properties: { name: cable.name, color: '#00FF00' } // Associe une couleur et un nom à chaque câble
-          });
+    else if(comparisontype === "heart" || comparisontype === "neurons" || comparisontype === "heart") {
+      fetch('https://thingproxy.freeboard.io/fetch/https://www.submarinecablemap.com/api/v3/cable/cable-geo.json')
+      .then(r => r.json())
+      .then(cablesGeo => {
+        let cablePaths = [];
+        cablesGeo.features.forEach(({ geometry, properties }) => {
+          geometry.coordinates.forEach(coords => cablePaths.push({ coords, properties }));
         });
+
+        globe
+          .pathsData(cablePaths)
+          .pathPoints('coords')
+          .pathPointLat(p => p[1])
+          .pathPointLng(p => p[0])
+          .pathColor(path => path.properties.color)
+          .pathLabel(path => path.properties.name)
+          .pathDashLength(0.1)
+          .pathDashGap(0.008)
+          .pathDashAnimateTime(12000);
+});
       }
-    });
-    return cablePaths;
-  };
-
-  // Récupérer les données des câbles et ajouter des arcs et des points
-  getCableData().then(cables => {
-    const cablePaths = parseCableData(cables);
-
-    // Ajouter les arcs et les points au globe
-    myGlobe
-      .pathsData(cablePaths)
-      .pathPoints('coords')
-      .pathPointLat(p => p[1])  // Latitude
-      .pathPointLng(p => p[0])  // Longitude
-      .pathColor(path => path.properties.color) // Couleur du câble
-      .pathLabel(path => path.properties.name)  // Nom du câble
-      .pathDashLength(0.1)  // Longueur des segments de dash
-      .pathDashGap(0.008)   // Espace entre les segments
-      .pathDashAnimateTime(12000); // Temps d'animation des câbles
-
-    // Optionnellement, ajouter des points représentant les extrémités des câbles
-    myGlobe
-      .pointsData(cablePaths.map(path => ({ lat: path.coords[0][1], lng: path.coords[0][0] })))
-      .pointColor(() => 'red')  // Couleur des points
-      .pointRadius(0.1)  // Taille des points
-      .pointAltitude(0.2); // Altitude des points
-  });
-
-  // Mise en place de la vue initiale du globe
-  myGlobe.pointOfView(MAP_CENTER, 4000);
-
-
-    }
   }
 ;
 
