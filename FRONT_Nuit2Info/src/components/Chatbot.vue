@@ -44,6 +44,7 @@
         <!-- Affichage des questions -->
         <div v-if="questions.length && !selectedQuestion">
           <q-btn
+            no-caps
             v-for="(question, index) in questions"
             :key="index"
             :label="question"
